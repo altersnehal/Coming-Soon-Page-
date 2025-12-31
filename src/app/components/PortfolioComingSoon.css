@@ -1,0 +1,379 @@
+/* --- Core Styles --- */
+:root {
+    --accent-color: #10b981;
+    --bg-color: #0a1628;
+}
+
+/* Prevent white background from showing */
+body,
+html {
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.mono {
+    font-family: 'Space Mono', monospace;
+}
+
+/* --- Background Ambience --- */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-20px, 20px);
+    }
+}
+
+.blob {
+    position: absolute;
+    filter: blur(90px);
+    z-index: 0;
+    opacity: 0.3;
+    animation: float 20s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* --- Draggable Stickers (Physics Managed) --- */
+.sticker {
+    position: absolute;
+    z-index: 20;
+    cursor: grab;
+    filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.5));
+    /* Animation removed to allow Matter.js physics to control position */
+    will-change: transform;
+}
+
+/* Removed @keyframes stickerFloat */
+
+.sticker:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+    filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.7));
+    z-index: 50;
+    animation: none;
+}
+
+/* --- Browser Window Styles --- */
+.browser-window {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.3),
+        0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Browser Header */
+.browser-header {
+    background: rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 12px 0 12px;
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+/* Tabs */
+.tab {
+    position: relative;
+    height: 36px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px 8px 0 0;
+    font-size: 12px;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    max-width: 160px;
+    flex: 1;
+    border: 1px solid transparent;
+    border-bottom: none;
+}
+
+.tab:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+}
+
+.tab.active {
+    background: rgba(30, 41, 59, 0.95);
+    color: #fff;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+.tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(30, 41, 59, 0.95);
+    z-index: 3;
+}
+
+.favicon {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+/* --- Typography & Animations --- */
+.glitch-wrapper h1 {
+    text-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+    animation: languageFade 3s ease-in-out infinite;
+}
+
+@keyframes languageFade {
+
+    0%,
+    90% {
+        opacity: 1;
+    }
+
+    95%,
+    100% {
+        opacity: 0.3;
+    }
+}
+
+/* --- RETRO 3D STRIPE LOADER (REFINED & THIN) --- */
+.retro-loader-container {
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    padding: 2px;
+    box-shadow:
+        inset 0 1px 3px rgba(0, 0, 0, 0.8),
+        0 1px 0 rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+    height: 20px;
+}
+
+.retro-loader-bar {
+    height: 100%;
+    background-color: #f97316;
+    background-image:
+        linear-gradient(45deg, #000 25%, transparent 25%, transparent 50%, #000 50%, #000 75%, transparent 75%, transparent),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.1) 100%);
+    background-size: 16px 16px, 100% 100%;
+    border-radius: 9999px;
+    box-shadow:
+        0 0 15px rgba(249, 115, 22, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    animation: retro-stripes 0.5s linear infinite;
+    position: relative;
+    transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    border-right: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.retro-loader-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+}
+
+@keyframes retro-stripes {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 16px 16px;
+    }
+}
+
+/* --- STRIKETHROUGH ANIMATION --- */
+.idealistic-text {
+    position: relative;
+    display: inline-block;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 1.2s ease 0.6s, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s;
+    color: #94a3b8;
+    font-style: italic;
+}
+
+.idealistic-text::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    box-shadow: 0 0 8px var(--accent-color);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.idealistic-text.fade-out::after {
+    width: 100%;
+}
+
+.idealistic-text.fade-out {
+    opacity: 0;
+    transform: translateY(-30px);
+    pointer-events: none;
+}
+
+/* --- REAL TEXT REVEAL --- */
+.real-text {
+    position: relative;
+    margin-top: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 5;
+}
+
+.real-text.visible {
+    opacity: 1;
+    margin-top: 0;
+    transform: translateY(0);
+}
+
+/* Cursor tracker glow */
+#cursor-glow {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    transition: opacity 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* --- BUTTON STYLES (Subtle 3D / Dark Metallic) --- */
+.cta-button {
+    position: relative;
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #e2e8f0;
+    background: linear-gradient(to bottom, #1e293b, #0f172a);
+    border: 1px solid #334155;
+    border-bottom: 2px solid #0f172a;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease-out;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.5),
+        0 2px 4px -1px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.cta-button:hover {
+    background: linear-gradient(to bottom, #334155, #1e293b);
+    color: #fff;
+    border-color: #475569;
+    transform: translateY(-1px);
+    box-shadow:
+        0 6px 8px -1px rgba(0, 0, 0, 0.6),
+        0 3px 6px -1px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 0 15px rgba(16, 185, 129, 0.15);
+    /* Subtle green glow on hover */
+}
+
+.cta-button:active {
+    transform: translateY(1px);
+    border-bottom-width: 1px;
+    box-shadow:
+        0 1px 2px 0 rgba(0, 0, 0, 0.5),
+        inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.cta-button:active {
+    transform: translateY(0);
+}
+
+/* --- FLOATING ELEMENTS (macOS Dock Style) --- */
+.floating-dock {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    padding: 12px 20px;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.3),
+        0 20px 40px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    z-index: 9999;
+    animation: dockSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 4s forwards;
+    opacity: 0;
+    transform: translateX(-50%) translateY(100px);
+    pointer-events: auto;
+}
+
+@keyframes dockSlideUp {
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.floating-dock .dock-item {
+    font-size: 32px;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.floating-dock .dock-item:hover {
+    transform: translateY(-8px) scale(1.1);
+}
+
+.floating-dock .dock-divider {
+    width: 1px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 0 4px;
+}
