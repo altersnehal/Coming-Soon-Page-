@@ -90,6 +90,24 @@ body{background:#F5F6F7}
 .early-dt{font-size:9.5px;font-weight:300;color:var(--t3);line-height:1.35;text-align:right}
 .view-more{font-size:10px;font-weight:600;margin:8px 0 2px}
 .view-more a{display:inline-flex;align-items:center;justify-content:center;color:#fff;background:var(--navy);text-decoration:none;padding:7px 12px;border-radius:2px;letter-spacing:.2px}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .cv { margin: 0; box-shadow: none; }
+  .hdr { grid-template-columns: 1fr; }
+  .hdr-left { padding: 32px 24px 24px; border-right: none; border-bottom: 0.5px solid var(--rule); }
+  .hdr-right { padding: 24px; }
+  .name { font-size: 36px; white-space: normal; line-height: 1.1; }
+  .body { grid-template-columns: 1fr; }
+  .col-div { display: none; }
+  .sidebar { padding: 32px 24px; border-bottom: 0.5px solid var(--rule); }
+  .main { padding: 32px 24px; }
+  .exp-head { flex-direction: column; gap: 8px; }
+  .exp-time { text-align: left; }
+  .exp-role { font-size: 15px; }
+  .t-grid { grid-template-columns: 1fr; }
+  .h-title { font-size: 10px; line-height: 1.5; }
+}
 </style>
 </head>
 <body>
