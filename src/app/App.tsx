@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import Matter from 'matter-js';
 import './components/PortfolioComingSoon.css';
 
@@ -16,6 +17,52 @@ interface ThoughtStep {
   text: string;
   width: string;
 }
+
+const playEraseSound = () => {
+  try {
+    const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+    const bufferSize = ctx.sampleRate * 2.5; 
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    
+    let b0=0, b1=0, b2=0, b3=0, b4=0, b5=0, b6=0;
+    for (let i = 0; i < bufferSize; i++) {
+        let white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.96900 * b2 + white * 0.1538520;
+        b3 = 0.86650 * b3 + white * 0.3104856;
+        b4 = 0.55000 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.0168980;
+        data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11 * 0.5;
+        b6 = white * 0.115926;
+    }
+    const noiseSource = ctx.createBufferSource();
+    noiseSource.buffer = buffer;
+    
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(300, ctx.currentTime);
+    filter.frequency.linearRampToValueAtTime(800, ctx.currentTime + 1.25);
+    filter.frequency.linearRampToValueAtTime(300, ctx.currentTime + 2.5);
+
+    const gainNode = ctx.createGain();
+    gainNode.gain.setValueAtTime(0, ctx.currentTime);
+    gainNode.gain.linearRampToValueAtTime(1, ctx.currentTime + 0.2);
+    gainNode.gain.linearRampToValueAtTime(1, ctx.currentTime + 2.3);
+    gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + 2.5);
+
+    noiseSource.connect(filter);
+    filter.connect(gainNode);
+    gainNode.connect(ctx.destination);
+    
+    noiseSource.start();
+  } catch (e) {
+    console.error("Audio playback failed", e);
+  }
+};
 
 export default function App() {
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
@@ -68,18 +115,12 @@ export default function App() {
 
   // Text split animation
   useEffect(() => {
-    const timer1 = setTimeout(() => {
-      setIsBroken(true);
-    }, 2000);
-
-    const timer2 = setTimeout(() => {
+    const timer = setTimeout(() => {
       setShowRealText(true);
-    }, 2800);
+      playEraseSound();
+    }, 3500);
 
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   // Progress bar cycling
@@ -347,83 +388,118 @@ export default function App() {
         </div>
 
         {/* Main Viewport */}
-        <div className="flex-1 flex flex-col items-center justify-center p-2 md:p-4 py-3 md:py-5 relative overflow-hidden bg-[#0f172a] bg-opacity-95">
+        <div className="flex-1 flex flex-col p-4 md:p-6 relative overflow-hidden bg-[#0f172a] bg-opacity-95">
 
-          {/* Headline */}
-          <div className="glitch-wrapper mb-1 md:mb-2 text-center z-10">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-none text-white drop-shadow-xl uppercase">
-              {languages[currentLanguageIndex]}
-            </h1>
-            <span className="text-xs font-mono text-emerald-400/80 mt-1.5 block tracking-[0.2em] md:tracking-[0.3em] uppercase">
-              Loading Creative Assets...
-            </span>
-          </div>
-
-          {/* Progress Bar (Retro 3D Style - THIN) */}
-          <div className="w-full max-w-xs md:max-w-md mb-2 md:mb-3 relative px-4">
-            <div className="retro-loader-container group">
-              <div
-                className="retro-loader-bar"
-                style={{ width: currentThought.width }}
-              />
-            </div>
-            <div className="text-center mt-1.5">
-              <span className="text-[10px] sm:text-xs font-mono text-slate-400 font-bold">
-                {currentThought.width}
+          {/* Top section: Headline and Progress */}
+          <div className="w-full flex flex-col items-center justify-center mt-2 md:mt-4 z-10">
+            {/* Headline */}
+            <div className="glitch-wrapper mb-2 md:mb-4 text-center">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-none text-white drop-shadow-xl uppercase">
+                {languages[currentLanguageIndex]}
+              </h1>
+              <span className="text-[10px] sm:text-xs font-mono text-emerald-400/80 mt-2 block tracking-[0.2em] md:tracking-[0.3em] uppercase">
+                Loading Creative Assets...
               </span>
             </div>
-          </div>
 
-          {/* Status Text */}
-          <div className="h-5 mb-1 md:mb-2 text-center px-4">
-            <p className="text-[10px] sm:text-xs font-mono text-slate-500 uppercase tracking-widest animate-pulse">
-              {currentThought.text}
-            </p>
-          </div>
-
-          {/* Bio / Text Section */}
-          <div className="text-center max-w-2xl z-10 relative flex flex-col items-center px-4 md:px-6">
-
-            {/* 1. Idealistic (The Shell) - Fades out */}
-            <div className={`idealistic-text text-sm sm:text-base md:text-xl mb-4 ${isBroken ? 'fade-out' : ''}`}>
-              "I am a visionary crafting digital symphonies that disrupt the paradigm."
+            {/* Progress Bar (Retro 3D Style - THIN) */}
+            <div className="w-full max-w-xs md:max-w-md mb-2 relative px-4">
+              <div className="retro-loader-container group">
+                <div
+                  className="retro-loader-bar"
+                  style={{ width: currentThought.width }}
+                />
+              </div>
+              <div className="text-center mt-2">
+                <span className="text-[10px] sm:text-xs font-mono text-slate-400 font-bold">
+                  {currentThought.width}
+                </span>
+              </div>
             </div>
 
-            {/* 2. Realistic (The Core Reveal) - Fades in */}
-            <div className={`real-text font-normal text-slate-200 text-sm sm:text-base md:text-xl leading-relaxed ${showRealText ? 'visible' : ''}`}>
-              <p>
-                Hi, I'm <span className="font-bold text-white">Snehal Solanki</span>.
-              </p>
-              <p className="mt-2">
-                I'm a multi-disciplinary designer trying to solve your business and product problems.
-                I succeed most of the time, fail sometimes (like we all do), and I promise I'm just looking for the right shade of hex code #000000 right now.
+            {/* Status Text */}
+            <div className="h-4 text-center px-4">
+              <p className="text-[9px] sm:text-[10px] font-mono text-slate-500 uppercase tracking-widest animate-pulse">
+                {currentThought.text}
               </p>
             </div>
           </div>
 
-          {/* Footer / CTA */}
+          {/* Middle section: Bio / Text Section */}
+          <div className="flex-1 w-full text-center max-w-2xl mx-auto z-10 relative flex flex-col items-center justify-center px-2 md:px-4 mt-6">
+            <AnimatePresence mode="wait">
+              {!showRealText ? (
+                <motion.div
+                  key="hoax"
+                  className="relative flex items-center justify-center w-full"
+                  exit={{ opacity: [1, 1, 0] }}
+                  transition={{ duration: 2.5 }}
+                >
+                  <motion.div
+                    initial={{ clipPath: "inset(0 0 0 0)" }}
+                    exit={{ clipPath: "inset(0 100% 0 0)" }}
+                    transition={{ duration: 2.5, ease: "easeInOut" }}
+                    className="idealistic-text text-sm sm:text-base md:text-xl text-slate-400 italic"
+                  >
+                    "I am a visionary crafting digital symphonies that disrupt the paradigm."
+                  </motion.div>
+                  
+                  {/* The Eraser Illustration */}
+                  <motion.div
+                    initial={{ left: "100%", opacity: 0 }}
+                    exit={{ left: "0%", opacity: 1 }}
+                    transition={{ duration: 2.5, ease: "easeInOut" }}
+                    className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 text-2xl md:text-3xl drop-shadow-md z-20 pointer-events-none"
+                  >
+                    🧽
+                  </motion.div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="real"
+                  initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
+                  animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                  transition={{ duration: 1 }}
+                  className="real-text font-normal text-slate-200 text-xs sm:text-sm md:text-base leading-relaxed"
+                >
+                  <p>
+                    Hi, I'm <span className="font-bold text-white">Snehal Solanki</span>.
+                  </p>
+                  <p className="mt-2">
+                    I'm a multi-disciplinary designer trying to solve your business and product problems.
+                    I succeed most of the time, fail sometimes (like we all do), and I promise I'm just looking for the right shade of hex code #000000 right now.
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Bottom section: Footer / CTA */}
           <div
-            className="mt-auto pt-4 md:pt-6 pb-2 flex gap-4 md:gap-6 text-sm md:text-base flex-wrap justify-center"
+            className="mt-4 mb-2 flex gap-3 md:gap-4 text-xs md:text-sm flex-wrap justify-center items-end z-10"
             style={{
               opacity: 0,
               animation: 'fadeIn 0.5s ease-out 4s forwards'
             }}
           >
-            <a href="mailto:altersnehal@gmail.com" className="cta-button">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <a href="mailto:eddy.snehal@gmail.com" className="cta-button">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                 <polyline points="22,6 12,13 2,6"></polyline>
               </svg>
               Say Hello
             </a>
-            <a href="https://www.linkedin.com/in/snehalsolanki" target="_blank" rel="noopener noreferrer" className="cta-button">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
+            <a href="/resume" target="_blank" rel="noopener noreferrer" className="cta-button">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
               </svg>
-              LinkedIn
+              Resume
             </a>
           </div>
-
         </div>
       </div>
 

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snehal Solanki — Resume</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#1B2A4A;--rule:#E3E6EA;--t1:#20242A;--t2:#4B535D;--t3:#8A929B}
+body{background:#F5F6F7}
+.cv{max-width:860px;margin:0 auto;font-family:'Space Grotesk',sans-serif;background:#fff;box-shadow:0 0 38px rgba(27,42,74,0.055)}
+
+.hdr{display:grid;grid-template-columns:1fr 220px;border-bottom:0.5px solid var(--rule)}
+.hdr-left{padding:32px 32px 26px;border-right:0.5px solid var(--rule);display:flex;flex-direction:column;justify-content:flex-end}
+.name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:42px;line-height:1;letter-spacing:-1px;color:var(--t1);white-space:nowrap}
+.name span{color:var(--navy)}
+.h-title{margin-top:12px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);font-weight:600}
+.h-summary{margin-top:10px;font-size:11.5px;font-weight:300;color:var(--t2);line-height:1.82}
+.hdr-right{padding:28px 24px;display:flex;flex-direction:column;justify-content:flex-end}
+.contact{font-size:10px;font-weight:300;color:var(--t2);display:flex;flex-direction:column;gap:7px}
+.contact-row{display:block;color:var(--t2);text-decoration:none;line-height:1.4}
+.contact-row span{overflow-wrap:anywhere}
+.contact-row:hover span{color:var(--navy)}
+
+.body{display:grid;grid-template-columns:192px 0.5px minmax(0,1fr)}
+.col-div{background:var(--rule)}
+.sidebar{padding:28px 20px 34px 32px}
+.main{padding:28px 32px 38px 26px}
+
+.slbl{font-size:8px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;color:var(--navy);padding-bottom:8px;border-bottom:0.5px solid var(--rule);margin-bottom:15px}
+.s-sec{margin-bottom:24px}
+.sk-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.sk-list li{font-size:11px;font-weight:300;color:var(--t2);line-height:1.3}
+.skill-cat{margin-bottom:17px}
+.skill-cat:last-child{margin-bottom:0}
+.skill-cat-title{font-size:12px;font-weight:600;color:var(--navy);margin-bottom:7px}
+.skill-line{font-size:11px;font-weight:300;color:var(--t2);line-height:1.68}
+.t-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px 6px}
+.t-grid span{font-size:11px;font-weight:300;color:var(--t2)}
+.edu-item{margin-bottom:13px}
+.edu-deg{font-size:11px;font-weight:500;color:var(--t1);line-height:1.4}
+.edu-uni{font-size:10px;font-weight:300;color:var(--t3);margin-top:2px}
+.edu-yr{font-size:10px;font-weight:300;color:var(--t3)}
+.lang-list{display:flex;flex-direction:column;gap:5px}
+.lang-list span{font-size:11px;font-weight:300;color:var(--t2)}
+
+.exp{margin-bottom:24px}
+.exp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:3px}
+.exp-role{font-size:13.5px;font-weight:600;color:var(--t1)}
+.exp-period{font-size:10px;font-weight:300;color:var(--t3);white-space:nowrap}
+.exp-time{text-align:right;flex-shrink:0}
+.exp-loc-right{font-size:10px;font-weight:300;color:var(--t3);margin-top:4px}
+.exp-co-row{font-size:11.5px;margin-bottom:6px}
+.exp-co{color:var(--t2);font-weight:500}
+.exp-co-meta{color:var(--t3);font-weight:300}
+.exp-loc-row{font-size:10px;font-weight:300;color:var(--t3);margin-bottom:9px}
+.promoted{font-size:9px;font-weight:500;color:var(--navy);display:flex;align-items:center;gap:4px;margin-bottom:10px}
+.promoted svg{width:10px;height:10px;flex-shrink:0}
+.promoted svg path{stroke:var(--navy)}
+.desc{font-size:11px;font-weight:300;color:var(--t2);line-height:1.82;margin-bottom:11px}
+
+.blist{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:11px}
+.blist li{font-size:11px;font-weight:300;color:var(--t2);line-height:1.72;padding-left:14px;position:relative}
+.blist li::before{content:'•';position:absolute;left:0;top:-1px;font-size:11px;color:var(--navy)}
+.blist.nv li::before{color:var(--navy)}
+.blist.mr li::before{color:var(--navy)}
+.blist li b{font-weight:600;color:var(--t1)}
+
+.impact{margin-bottom:10px}
+.impact-lbl{font-size:11px;font-weight:600;color:var(--t1)}
+.impact-txt{font-size:11px;font-weight:300;color:var(--t2);line-height:1.82}
+.rdiv{border:none;border-top:0.5px dashed var(--rule);margin:10px 0}
+.role-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.role-ttl{font-size:12px;font-weight:500;color:var(--t1)}
+.role-dt{font-size:10px;font-weight:300;color:var(--t3);white-space:nowrap}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.tag{font-size:8.5px;font-weight:400;padding:2px 7px;border:0.5px solid var(--rule);border-radius:2px;color:var(--t3);background:#fff}
+.tn{border-color:var(--navy);color:var(--navy)}
+.tm{border-color:var(--navy);color:var(--navy)}
+.hrule{border:none;border-top:0.5px solid var(--rule);margin:20px 0}
+.proj{margin-bottom:12px}
+.proj-name{font-size:11.5px;font-weight:600;color:var(--t1)}
+.proj-desc{font-size:10.5px;font-weight:300;color:var(--t2);line-height:1.78;margin-top:4px}
+.early-list{display:flex;flex-direction:column;gap:5px;margin:9px 0 10px}
+.early-item{display:grid;grid-template-columns:minmax(0,1fr) 88px;gap:10px;padding-bottom:5px;border-bottom:0.5px dashed var(--rule)}
+.early-item:last-child{border-bottom:0;padding-bottom:0}
+.early-role{font-size:11px;font-weight:600;color:var(--t1);line-height:1.35}
+.early-co{font-size:10px;font-weight:300;color:var(--t2);line-height:1.45;margin-top:1px}
+.early-dt{font-size:9.5px;font-weight:300;color:var(--t3);line-height:1.35;text-align:right}
+.view-more{font-size:10px;font-weight:600;margin:8px 0 2px}
+.view-more a{display:inline-flex;align-items:center;justify-content:center;color:#fff;background:var(--navy);text-decoration:none;padding:7px 12px;border-radius:2px;letter-spacing:.2px}
+</style>
+</head>
+<body>
+<div class="cv">
+
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="name"><span>Snehal</span> Solanki</div>
+      <div class="h-title">Product Designer &nbsp;·&nbsp; AI Design Engineer &nbsp;·&nbsp; 10+ years</div>
+      <div class="h-summary">The best design feels obvious only after you see it. It starts with noticing what people can't quite put into words. I've spent eight years learning to listen that closely, and the last year discovering what shifts when AI joins the conversation. The surprise? Better answers come from better questions, not faster ones.</div>
+    </div>
+    <div class="hdr-right">
+      <div class="contact">
+        <a class="contact-row" href="https://www.google.com/maps/search/?api=1&amp;query=Bengaluru%2C%20India">
+          <span>Bengaluru, India</span>
+        </a>
+        <a class="contact-row" href="https://confuseddesigner.in/">
+          <span>confuseddesigner.in</span>
+        </a>
+        <a class="contact-row" href="https://linkedin.com/in/snehalsolanki">
+          <span>linkedin.com/in/snehalsolanki</span>
+        </a>
+        <a class="contact-row" href="mailto:eddy.snehal@gmail.com">
+          <span>eddy.snehal@gmail.com</span>
+        </a>
+        <a class="contact-row" href="tel:+919724809985">
+          <span>+91 97248 09985</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="sidebar">
+      <div class="s-sec">
+        <div class="slbl">Skills</div>
+        <div class="skill-cat">
+          <div class="skill-cat-title">AI Workflows</div>
+          <div class="skill-line">AI Native Product Design / AI-Augmented Workflows / Prompt Engineering / Rapid Prototyping / Current AI Tooling / Next-Gen Product Thinking</div>
+        </div>
+        <div class="skill-cat">
+          <div class="skill-cat-title">Design</div>
+          <div class="skill-line">Product Design / UX Strategy / Systems Thinking / Information Architecture / Design Systems / User Flows / Wireframing / Prototyping / Interaction Design / Developer Handoffs</div>
+        </div>
+        <div class="skill-cat">
+          <div class="skill-cat-title">Research</div>
+          <div class="skill-line">Surveys / User Interviews / Journey Mapping / Usability Tests / Benchmarking / AI-Assisted Research / Research Synthesis / Design Audits</div>
+        </div>
+        <div class="skill-cat">
+          <div class="skill-cat-title">Tools</div>
+          <div class="skill-line">Figma / Cursor / Claude / Figma Make / Photoshop / Illustrator / Premiere / After Effects / HTML / CSS / JavaScript / Google Analytics / Clarity / Azure DevOps / Monday / WordPress / Notion / Vercel</div>
+        </div>
+      </div>
+      <div class="s-sec">
+        <div class="slbl">Education</div>
+        <div class="edu-item">
+          <div class="edu-deg">MSc, Design &amp; Media Technologies</div>
+          <div class="edu-uni">Bharathiar University, Bangalore</div>
+          <div class="edu-yr">2014 – 2016 · Distinction</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-deg">BCA, Computer Applications</div>
+          <div class="edu-uni">VNSG University, Surat</div>
+          <div class="edu-yr">2011 – 2014</div>
+        </div>
+      </div>
+      <div class="s-sec">
+        <div class="slbl">Languages</div>
+        <div class="lang-list">
+          <span>English — Professional</span>
+          <span>Gujarati — Native</span>
+          <span>Hindi — Bilingual</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-div"></div>
+
+    <div class="main">
+      <div class="slbl">Work Experience</div>
+
+      <!-- BHIVE -->
+      <div class="exp">
+        <div class="exp-head">
+          <div class="exp-role">Staff Product Designer</div>
+          <div class="exp-time">
+            <div class="exp-period">Jan 2024 – Present</div>
+            <div class="exp-loc-right">Bangalore</div>
+          </div>
+        </div>
+        <div class="exp-co-row">
+          <span class="exp-co">BHIVE Workspace</span>
+          <span class="exp-co-meta"> · Coworking &amp; Managed Offices</span>
+        </div>
+        <div class="promoted">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M5 8V2M5 2L2 5M5 2L8 5" stroke="#1B2A4A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Promoted from Lead Product Designer · Oct 2025
+        </div>
+        <div class="desc">Built BHIVE's entire product design function from zero — apps, internal platforms, and investment products — scaling it with AI-augmented workflows.</div>
+        <ul class="blist nv">
+          <li><b>0 to 1 Mobile App:</b> Designed and launched BHIVE's first mobile app covering bookings, access, memberships, and full user lifecycle.</li>
+          <li><b>Gatekeeper System:</b> Built 3-variant scanning app across 40+ locations — QR validation, approve/reject flows, and fraud edge-case handling.</li>
+          <li><b>Internal Platforms:</b> Designed Infinity (ops), User Management, and Inventory systems — roles, permissions, workflows, and center-level governance.</li>
+          <li><b>Investment Platform:</b> Led BHIVE Alts — investor onboarding, KYC, mobile app, and payouts dashboard for non-expert users.</li>
+          <li><b>Meeting Room Booking:</b> Shipped end-to-end — center-specific pricing, 30-min slabs, member and non-member payment flows, full failure state coverage.</li>
+          <li><b>Design System:</b> Built and owns the BHIVE system — tokens, components, mobile and web — cutting handoff time significantly.</li>
+          <li><b>AI Workflows:</b> Introduced AI-assisted design practice (0 to 1) using Claude — ideation, audits, specs, research synthesis — reducing iteration cycles by ~40%.</li>
+        </ul>
+        <div class="impact">
+          <span class="impact-lbl">Biggest Impact: </span>
+          <span class="impact-txt">Took BHIVE's design from zero to a fully shipped, AI-augmented product practice in under a year.</span>
+        </div>
+        <div class="tags">
+          <span class="tag tn">AI-assisted Design</span>
+          <span class="tag tn">Design Systems</span>
+          <span class="tag tm">Prompt Engineering</span>
+          <span class="tag">Mobile · Web</span>
+          <span class="tag">B2B Dashboards</span>
+        </div>
+      </div>
+
+      <!-- INTELLIPAAT -->
+      <div class="exp">
+        <div class="exp-head">
+          <div class="exp-role">Sr. Product Designer &amp; Design Manager</div>
+          <div class="exp-time">
+            <div class="exp-period">Mar 2022 – Dec 2023</div>
+            <div class="exp-loc-right">Bangalore</div>
+          </div>
+        </div>
+        <div class="exp-co-row">
+          <span class="exp-co">Intellipaat.com</span>
+          <span class="exp-co-meta"> · EdTech · 1 yr 10 mos</span>
+        </div>
+        <div class="promoted">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M5 8V2M5 2L2 5M5 2L8 5" stroke="#1B2A4A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Promoted to Design Manager · Apr 2023
+        </div>
+        <ul class="blist mr">
+          <li><b>Mobile App:</b> Led full revamp — 30% increase in user retention within the first 6 months of launch.</li>
+          <li><b>LMS Redesign:</b> Improved accessibility and navigation across the core learning platform — measurably better usability for learners and admins.</li>
+          <li><b>Dashboards:</b> Built Sales and Ops dashboards from scratch — enabling data-driven decisions across both teams.</li>
+          <li><b>Design Curriculum:</b> Drove end-to-end curriculum and course content for Intellipaat's design courses — content, sessions, and quality management.</li>
+          <li><b>AI Early Adoption:</b> Introduced AI-assisted research workflows to the team before it became industry standard.</li>
+        </ul>
+        <div class="impact">
+          <span class="impact-lbl">Biggest Impact: </span>
+          <span class="impact-txt">Built and managed a team of 8 across motion, visual design, video, and sound — streamlined production and raised output quality org-wide.</span>
+        </div>
+        <div class="tags">
+          <span class="tag tm">Design Leadership</span>
+          <span class="tag">LMS</span>
+          <span class="tag">Mobile App</span>
+          <span class="tag">Dashboards</span>
+          <span class="tag">Team of 8</span>
+        </div>
+      </div>
+
+      <!-- ASHV -->
+      <div class="exp">
+        <div class="exp-head">
+          <div class="exp-role">UX Designer</div>
+          <div class="exp-time">
+            <div class="exp-period">Feb 2019 – Mar 2022</div>
+            <div class="exp-loc-right">Bangalore</div>
+          </div>
+        </div>
+        <div class="exp-co-row">
+          <span class="exp-co">Ashv Finance (Tribe3)</span>
+          <span class="exp-co-meta"> · Fintech / NBFC · 3 yrs 2 mos</span>
+        </div>
+        <ul class="blist">
+          <li><b>Lending Platforms:</b> Led UX for Digital Lending Product, Loan Origination, Loan Management, and Invoice Financing Dashboards.</li>
+          <li><b>User Research:</b> Conducted research across B2C and enterprise products — insights directly shaped design and process improvements.</li>
+          <li><b>Platform Efficiency:</b> Collaborated with stakeholders to refine requirements — 15-20% increase in platform efficiency and user satisfaction.</li>
+        </ul>
+        <div class="impact">
+          <span class="impact-lbl">Biggest Impact: </span>
+          <span class="impact-txt">Brought structured UX thinking to complex fintech flows — improved usability across the full lending and banking suite.</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Fintech</span>
+          <span class="tag">Digital Lending</span>
+          <span class="tag">B2C</span>
+          <span class="tag">UX Research</span>
+        </div>
+      </div>
+
+      <!-- EARLIER EXPERIENCE -->
+      <div class="exp">
+        <div class="exp-head">
+          <div class="exp-role">Earlier Experience</div>
+          <div class="exp-time">
+            <div class="exp-period">Mar 2016 – Feb 2019</div>
+            <div class="exp-loc-right">Mumbai · Bangalore</div>
+          </div>
+        </div>
+        <div class="exp-co-row">
+          <span class="exp-co">Risevertise Media · WoNoBo.com · City Link · Indofash · Valuepoint</span>
+        </div>
+        <div class="desc">Career foundation across product, agency, travel tech, logistics, fashion, and production workflows — moving from hands-on visual craft into UX ownership across research, IA, mobile UI, web apps, branding, prototypes, decks, and marketing systems.</div>
+        <div class="tags">
+          <span class="tag">UX Foundations</span>
+          <span class="tag">Visual Design</span>
+          <span class="tag">Travel Tech</span>
+          <span class="tag">Logistics</span>
+          <span class="tag">Agency</span>
+        </div>
+        <div class="view-more">
+          <a href="https://linkedin.com/in/snehalsolanki">View full experience on LinkedIn →</a>
+        </div>
+      </div>
+
+      <hr class="hrule">
+      <div class="slbl">Selected Projects</div>
+
+      <div class="proj">
+        <div class="proj-name">BHIVE Alts — Investment Platform</div>
+        <div class="proj-desc">Investor onboarding, KYC journeys, mobile app, and payouts dashboard — simplifying complex investment workflows for non-expert users.</div>
+      </div>
+      <div class="proj">
+        <div class="proj-name">BHIVE Workspace — User Management System</div>
+        <div class="proj-desc">End-to-end admin platform covering roles, permissions, bulk controls, and governance across all BHIVE centers and workspaces.</div>
+      </div>
+      <div class="proj">
+        <div class="proj-name">BHIVE Workspace — Inventory Management Platform</div>
+        <div class="proj-desc">Internal platform for tracking workspace inventory, assets, and center-level stock — designed for ops teams operating at scale.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
