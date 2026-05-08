@@ -348,31 +348,38 @@ body{background:#F5F6F7}
 </div>
 <script>
 function downloadPDF() {
+  const btn = document.querySelector('.download-btn');
+  btn.textContent = 'Generating…';
+  btn.disabled = true;
+
   const element = document.querySelector('.cv');
-  
-  // Calculate dynamic height to ensure "one long page"
-  // We use 96 DPI for the calculation and add margin space
-  const contentHeightInches = (element.scrollHeight / 96) + 1; 
-  
+
+  // Read the element's actual rendered size
+  const w = element.offsetWidth;
+  const h = element.scrollHeight;
+
   const opt = {
-    margin: 0.5, // This adds 0.5in margins and centers the content
+    margin: 0,
     filename: 'Snehal_Solanki_Resume.pdf',
-    image: { type: 'jpeg', quality: 1 },
-    html2canvas: { 
-      scale: 2,                 
-      useCORS: true,            
-      scrollY: 0,               
-      windowWidth: 1200, // Wider window prevents text clipping/wrapping
-      letterRendering: true
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: {
+      scale: 2,
+      useCORS: true,
+      scrollY: 0,
+      windowWidth: w,   // match element width exactly
+      width: w           // match element width exactly
     },
-    jsPDF: { 
-      unit: 'in', 
-      format: [9.5, contentHeightInches], // 8.5in content + 1in total margin
-      orientation: 'portrait'
+    jsPDF: {
+      unit: 'px',
+      format: [w, h],    // page = exact element size
+      hotfixes: ['px_scaling']
     }
   };
 
-  html2pdf().set(opt).from(element).save();
+  html2pdf().set(opt).from(element).save().then(function() {
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download PDF';
+    btn.disabled = false;
+  });
 }
 </script>
 <button class="download-btn" onclick="downloadPDF()">
