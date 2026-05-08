@@ -351,29 +351,32 @@ function downloadPDF() {
   const target = document.querySelector('.cv');
   const originalStyle = target.style.cssText;
 
-  // Force desktop layout for high-fidelity capture
-  target.style.width = '1200px';
-  target.style.margin = '0';
-  target.style.padding = '40px'; 
+  // Maintain the natural design width (860px) to prevent grid distortion
+  target.style.width = '860px';
   target.style.boxShadow = 'none';
+  target.style.margin = '0';
+
+  // Use points (pt) for absolute precision in jsPDF
+  // 860px translates to 645pt at standard 72dpi PDF scale
+  const widthPt = 645;
+  const heightPt = (target.scrollHeight * 645) / 860;
 
   const opt = {
     margin: 0,
-    filename: 'Snehal_Solanki_Resume_Perfect.pdf',
+    filename: 'Snehal_Solanki_Resume.pdf',
     image: { type: 'jpeg', quality: 1 },
     html2canvas: { 
       scale: 3,                 
       useCORS: true,            
       scrollY: 0,               
-      windowWidth: 1200,        
-      width: 1200,              
-      letterRendering: true,    
-      logging: false            
+      windowWidth: 860,        
+      width: 860,              
+      letterRendering: true
     },
     jsPDF: { 
-      unit: 'px', 
-      format: [1200, target.scrollHeight + 80], 
-      hotfixes: ['px_scaling'] 
+      unit: 'pt', 
+      format: [widthPt, heightPt], 
+      orientation: 'portrait'
     }
   };
 
