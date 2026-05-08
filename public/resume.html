@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Snehal Solanki — Resume</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--navy:#182A4D;--rule:#DCE1E7;--t1:#171B21;--t2:#343B44;--t3:#6F7781}
@@ -113,18 +112,8 @@ body{background:#F5F6F7}
 }
 .download-btn { position: fixed; bottom: 24px; right: 24px; display: flex; align-items: center; gap: 8px; padding: 10px 16px; background-color: var(--navy); color: #fff; border: none; border-radius: 4px; font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; box-shadow: 0 4px 12px rgba(27,42,74,0.15); transition: transform 0.2s, background-color 0.2s; z-index: 100; text-decoration: none; }
 .download-btn:hover { background-color: #111e38; transform: translateY(-2px); }
-@media print {
-  .download-btn { display: none !important; }
-  body { background: #fff !important; margin: 0; padding: 0; }
-  .cv { max-width: none !important; margin: 0 !important; box-shadow: none !important; }
-  @page { margin: 0; size: A4 portrait; }
-}
-
-/* Fix html2canvas rendering and pagination bugs */
-.pdf-mode { width: 860px !important; max-width: 860px !important; margin: 0 !important; box-shadow: none !important; }
-.pdf-mode * { font-variant-ligatures: none !important; -webkit-font-smoothing: antialiased !important; letter-spacing: 0.1px !important; }
-.pdf-mode .s-sec, .pdf-mode .exp, .pdf-mode .proj, .pdf-mode .edu-item, .pdf-mode .skill-cat { page-break-inside: avoid !important; break-inside: avoid !important; }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 <div class="cv">
@@ -357,35 +346,26 @@ body{background:#F5F6F7}
     </div>
   </div>
 </div>
+<script>
+function downloadPDF() {
+  const element = document.querySelector('.cv');
+  const opt = { 
+    margin: 0, 
+    filename: 'Snehal_Solanki_Resume.pdf',
+    image: { type: 'jpeg', quality: 0.98 }, 
+    html2canvas: { scale: 2 }, 
+    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } 
+  };
+  const originalShadow = element.style.boxShadow;
+  element.style.boxShadow = 'none';
+  html2pdf().set(opt).from(element).save().then(() => {
+    element.style.boxShadow = originalShadow;
+  });
+}
+</script>
 <button class="download-btn" onclick="downloadPDF()">
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
   Download PDF
 </button>
-
-<script>
-  function downloadPDF() {
-    const btn = document.querySelector('.download-btn');
-    btn.style.display = 'none';
-    
-    const element = document.querySelector('.cv');
-    element.classList.add('pdf-mode');
-    
-    setTimeout(() => {
-      const opt = { 
-        margin: [0.2, 0], // Slight vertical padding
-        filename: 'Snehal_Solanki_Resume.pdf',
-        image: { type: 'jpeg', quality: 1.0 }, 
-        html2canvas: { scale: 2, useCORS: true, windowWidth: 860 }, 
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-      };
-      
-      html2pdf().set(opt).from(element).save().then(() => {
-        btn.style.display = 'flex';
-        element.classList.remove('pdf-mode');
-      });
-    }, 150);
-  }
-</script>
 </body>
 </html>
