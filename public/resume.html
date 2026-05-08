@@ -121,8 +121,9 @@ body{background:#F5F6F7}
 }
 
 /* Fix html2canvas sub-pixel text overlap bug */
+.pdf-mode .body { grid-template-columns: 210px 0.5px minmax(0,1fr) !important; }
 .pdf-mode * { letter-spacing: normal !important; text-rendering: geometricPrecision !important; }
-.pdf-mode .skill-line, .pdf-mode .sk-list li, .pdf-mode .lang-list span, .pdf-mode .desc, .pdf-mode .blist li, .pdf-mode .impact-txt, .pdf-mode .edu-deg { font-size: 11px !important; line-height: 1.6 !important; }
+.pdf-mode .skill-line, .pdf-mode .sk-list li, .pdf-mode .lang-list span, .pdf-mode .desc, .pdf-mode .blist li, .pdf-mode .impact-txt, .pdf-mode .edu-deg { font-size: 11px !important; line-height: 1.6 !important; word-spacing: 1px !important; }
 .pdf-mode .h-title { font-size: 10px !important; }
 .pdf-mode .h-summary { font-size: 11px !important; }
 .pdf-mode .contact { font-size: 10px !important; }
@@ -375,20 +376,24 @@ body{background:#F5F6F7}
     btn.style.display = 'none'; // Temporarily hide the button
     
     const element = document.querySelector('.cv');
-    element.classList.add('pdf-mode'); // Round font sizes for precise canvas rendering
+    element.classList.add('pdf-mode'); // Apply precise canvas layout fixes
     
-    const opt = { 
-      margin: 0, // Using 0 because .cv already has internal padding
-      filename: 'Snehal_Solanki_Resume.pdf',
-      image: { type: 'jpeg', quality: 0.98 }, 
-      html2canvas: { scale: 2 }, 
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } 
-    };
-    
-    html2pdf().set(opt).from(element).save().then(() => {
-      btn.style.display = 'flex'; // Restore button
-      element.classList.remove('pdf-mode'); // Restore precise web typography
-    });
+    // Wait a tiny bit for the browser to apply the pdf-mode CSS reflow
+    setTimeout(() => {
+      // Create a single-page PDF exactly the size of the element to completely eliminate page-break cuts
+      const opt = { 
+        margin: 0, 
+        filename: 'Snehal_Solanki_Resume.pdf',
+        image: { type: 'jpeg', quality: 1.0 }, 
+        html2canvas: { scale: 2, useCORS: true }, 
+        jsPDF: { unit: 'px', format: [element.offsetWidth, element.offsetHeight], orientation: 'portrait', hotfixes: ["px_scaling"] } 
+      };
+      
+      html2pdf().set(opt).from(element).save().then(() => {
+        btn.style.display = 'flex'; // Restore button
+        element.classList.remove('pdf-mode'); // Restore precise web typography
+      });
+    }, 100);
   }
 </script>
 </body>
