@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Snehal Solanki — Resume</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--navy:#182A4D;--rule:#DCE1E7;--t1:#171B21;--t2:#343B44;--t3:#6F7781}
@@ -351,9 +352,23 @@ body{background:#F5F6F7}
     </div>
   </div>
 </div>
-<button class="download-btn" onclick="window.print()">
+<button class="download-btn" onclick="downloadPDF()">
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
   Download PDF
 </button>
+
+<script>
+  function downloadPDF() {
+    const element = document.querySelector('.cv');
+    const opt = { 
+      margin: 0, 
+      filename: 'Snehal_Solanki_Resume.pdf',
+      image: { type: 'jpeg', quality: 0.98 }, 
+      html2canvas: { scale: 2 }, 
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } 
+    };
+    html2pdf().set(opt).from(element).save();
+  }
+</script>
 </body>
 </html>
