@@ -348,28 +348,38 @@ body{background:#F5F6F7}
 </div>
 <script>
 function downloadPDF() {
-  const element = document.querySelector('.cv');
-  
-  // Calculate height in inches (96 DPI)
-  const heightInInches = (element.scrollHeight / 96) + 0.5; // adding small buffer
-  
-  const opt = { 
-    margin: 0, 
-    filename: 'Snehal_Solanki_Resume.pdf',
-    image: { type: 'jpeg', quality: 1.0 }, 
+  const target = document.querySelector('.cv');
+  const originalStyle = target.style.cssText;
+
+  // Force desktop layout for high-fidelity capture
+  target.style.width = '1200px';
+  target.style.margin = '0';
+  target.style.padding = '40px'; 
+  target.style.boxShadow = 'none';
+
+  const opt = {
+    margin: 0,
+    filename: 'Snehal_Solanki_Resume_Perfect.pdf',
+    image: { type: 'jpeg', quality: 1 },
     html2canvas: { 
-      scale: 2, 
-      useCORS: true, 
-      windowWidth: 1200
-    }, 
+      scale: 3,                 
+      useCORS: true,            
+      scrollY: 0,               
+      windowWidth: 1200,        
+      width: 1200,              
+      letterRendering: true,    
+      logging: false            
+    },
     jsPDF: { 
-      unit: 'in', 
-      format: [8.5, heightInInches], // Using standard width (8.5in) and dynamic height
-      orientation: 'portrait' 
-    } 
+      unit: 'px', 
+      format: [1200, target.scrollHeight + 80], 
+      hotfixes: ['px_scaling'] 
+    }
   };
 
-  html2pdf().set(opt).from(element).save();
+  html2pdf().set(opt).from(target).save().then(() => {
+    target.style.cssText = originalStyle; 
+  });
 }
 </script>
 <button class="download-btn" onclick="downloadPDF()">
