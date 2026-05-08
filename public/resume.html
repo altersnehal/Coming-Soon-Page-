@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Snehal Solanki — Resume</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#1B2A4A;--rule:#E3E6EA;--t1:#20242A;--t2:#4B535D;--t3:#8A929B}
+:root{--navy:#182A4D;--rule:#DCE1E7;--t1:#171B21;--t2:#343B44;--t3:#6F7781}
 body{background:#F5F6F7}
 .cv{max-width:860px;margin:0 auto;font-family:'Space Grotesk',sans-serif;background:#fff;box-shadow:0 0 38px rgba(27,42,74,0.055)}
 
@@ -15,10 +15,12 @@ body{background:#F5F6F7}
 .hdr-left{padding:32px 32px 26px;border-right:0.5px solid var(--rule);display:flex;flex-direction:column;justify-content:flex-end}
 .name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:42px;line-height:1;letter-spacing:-1px;color:var(--t1);white-space:nowrap}
 .name span{color:var(--navy)}
-.h-title{margin-top:12px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);font-weight:600}
-.h-summary{margin-top:10px;font-size:11.5px;font-weight:300;color:var(--t2);line-height:1.82}
-.hdr-right{padding:28px 24px;display:flex;flex-direction:column;justify-content:flex-end}
-.contact{font-size:10px;font-weight:300;color:var(--t2);display:flex;flex-direction:column;gap:7px}
+.name .spark{font-size:13px;letter-spacing:0;color:var(--navy);opacity:.55;margin-left:8px;vertical-align:top;position:relative;top:3px}
+.h-title{margin-top:12px;font-size:10.6px;letter-spacing:1.15px;text-transform:uppercase;color:var(--navy);font-weight:600;white-space:nowrap}
+.h-summary{margin-top:10px;font-size:11.8px;font-weight:400;color:var(--t2);line-height:1.94}
+.hdr-right{padding:32px 24px 26px;display:flex;flex-direction:column;justify-content:flex-end}
+.contact-label{font-size:8px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--navy);padding-bottom:7px;border-bottom:0.5px solid var(--rule);margin-bottom:10px}
+.contact{font-size:10.2px;font-weight:400;color:var(--t2);display:flex;flex-direction:column;gap:7px}
 .contact-row{display:block;color:var(--t2);text-decoration:none;line-height:1.4}
 .contact-row span{overflow-wrap:anywhere}
 .contact-row:hover span{color:var(--navy)}
@@ -31,63 +33,63 @@ body{background:#F5F6F7}
 .slbl{font-size:8px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;color:var(--navy);padding-bottom:8px;border-bottom:0.5px solid var(--rule);margin-bottom:15px}
 .s-sec{margin-bottom:24px}
 .sk-list{list-style:none;display:flex;flex-direction:column;gap:6px}
-.sk-list li{font-size:11px;font-weight:300;color:var(--t2);line-height:1.3}
+.sk-list li{font-size:11.3px;font-weight:400;color:var(--t2);line-height:1.3}
 .skill-cat{margin-bottom:17px}
 .skill-cat:last-child{margin-bottom:0}
-.skill-cat-title{font-size:12px;font-weight:600;color:var(--navy);margin-bottom:7px}
-.skill-line{font-size:11px;font-weight:300;color:var(--t2);line-height:1.68}
+.skill-cat-title{font-size:12.2px;font-weight:600;color:var(--navy);margin-bottom:7px}
+.skill-line{font-size:11.3px;font-weight:400;color:var(--t2);line-height:1.58}
 .t-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px 6px}
-.t-grid span{font-size:11px;font-weight:300;color:var(--t2)}
+.t-grid span{font-size:11px;font-weight:400;color:var(--t2)}
 .edu-item{margin-bottom:13px}
-.edu-deg{font-size:11px;font-weight:500;color:var(--t1);line-height:1.4}
-.edu-uni{font-size:10px;font-weight:300;color:var(--t3);margin-top:2px}
-.edu-yr{font-size:10px;font-weight:300;color:var(--t3)}
+.edu-deg{font-size:11.3px;font-weight:500;color:var(--t1);line-height:1.4}
+.edu-uni{font-size:10px;font-weight:400;color:var(--t3);margin-top:2px}
+.edu-yr{font-size:10px;font-weight:400;color:var(--t3)}
 .lang-list{display:flex;flex-direction:column;gap:5px}
-.lang-list span{font-size:11px;font-weight:300;color:var(--t2)}
+.lang-list span{font-size:11.3px;font-weight:400;color:var(--t2)}
 
 .exp{margin-bottom:24px}
 .exp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:3px}
-.exp-role{font-size:13.5px;font-weight:600;color:var(--t1)}
-.exp-period{font-size:10px;font-weight:300;color:var(--t3);white-space:nowrap}
+.exp-role{font-size:13.8px;font-weight:600;color:var(--t1)}
+.exp-period{font-size:10px;font-weight:400;color:var(--t3);white-space:nowrap}
 .exp-time{text-align:right;flex-shrink:0}
-.exp-loc-right{font-size:10px;font-weight:300;color:var(--t3);margin-top:4px}
-.exp-co-row{font-size:11.5px;margin-bottom:6px}
+.exp-loc-right{font-size:10px;font-weight:400;color:var(--t3);margin-top:4px}
+.exp-co-row{font-size:11.7px;margin-bottom:6px}
 .exp-co{color:var(--t2);font-weight:500}
-.exp-co-meta{color:var(--t3);font-weight:300}
-.exp-loc-row{font-size:10px;font-weight:300;color:var(--t3);margin-bottom:9px}
+.exp-co-meta{color:var(--t3);font-weight:400}
+.exp-loc-row{font-size:10px;font-weight:400;color:var(--t3);margin-bottom:9px}
 .promoted{font-size:9px;font-weight:500;color:var(--navy);display:flex;align-items:center;gap:4px;margin-bottom:10px}
 .promoted svg{width:10px;height:10px;flex-shrink:0}
 .promoted svg path{stroke:var(--navy)}
-.desc{font-size:11px;font-weight:300;color:var(--t2);line-height:1.82;margin-bottom:11px}
+.desc{font-size:11.3px;font-weight:400;color:var(--t2);line-height:1.9;margin-bottom:11px}
 
-.blist{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:11px}
-.blist li{font-size:11px;font-weight:300;color:var(--t2);line-height:1.72;padding-left:14px;position:relative}
+.blist{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:11px}
+.blist li{font-size:11.3px;font-weight:400;color:var(--t2);line-height:1.44;padding-left:14px;position:relative}
 .blist li::before{content:'•';position:absolute;left:0;top:-1px;font-size:11px;color:var(--navy)}
 .blist.nv li::before{color:var(--navy)}
 .blist.mr li::before{color:var(--navy)}
 .blist li b{font-weight:600;color:var(--t1)}
 
 .impact{margin-bottom:10px}
-.impact-lbl{font-size:11px;font-weight:600;color:var(--t1)}
-.impact-txt{font-size:11px;font-weight:300;color:var(--t2);line-height:1.82}
+.impact-lbl{font-size:11.3px;font-weight:600;color:var(--t1)}
+.impact-txt{font-size:11.3px;font-weight:400;color:var(--t2);line-height:1.9}
 .rdiv{border:none;border-top:0.5px dashed var(--rule);margin:10px 0}
 .role-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
 .role-ttl{font-size:12px;font-weight:500;color:var(--t1)}
-.role-dt{font-size:10px;font-weight:300;color:var(--t3);white-space:nowrap}
+.role-dt{font-size:10px;font-weight:400;color:var(--t3);white-space:nowrap}
 .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
-.tag{font-size:8.5px;font-weight:400;padding:2px 7px;border:0.5px solid var(--rule);border-radius:2px;color:var(--t3);background:#fff}
+.tag{font-size:8.7px;font-weight:500;padding:2px 7px;border:0.5px solid var(--rule);border-radius:2px;color:var(--t3);background:#fff}
 .tn{border-color:var(--navy);color:var(--navy)}
 .tm{border-color:var(--navy);color:var(--navy)}
 .hrule{border:none;border-top:0.5px solid var(--rule);margin:20px 0}
 .proj{margin-bottom:12px}
-.proj-name{font-size:11.5px;font-weight:600;color:var(--t1)}
-.proj-desc{font-size:10.5px;font-weight:300;color:var(--t2);line-height:1.78;margin-top:4px}
+.proj-name{font-size:11.8px;font-weight:600;color:var(--t1)}
+.proj-desc{font-size:10.8px;font-weight:400;color:var(--t2);line-height:1.88;margin-top:4px}
 .early-list{display:flex;flex-direction:column;gap:5px;margin:9px 0 10px}
 .early-item{display:grid;grid-template-columns:minmax(0,1fr) 88px;gap:10px;padding-bottom:5px;border-bottom:0.5px dashed var(--rule)}
 .early-item:last-child{border-bottom:0;padding-bottom:0}
 .early-role{font-size:11px;font-weight:600;color:var(--t1);line-height:1.35}
-.early-co{font-size:10px;font-weight:300;color:var(--t2);line-height:1.45;margin-top:1px}
-.early-dt{font-size:9.5px;font-weight:300;color:var(--t3);line-height:1.35;text-align:right}
+.early-co{font-size:10px;font-weight:400;color:var(--t2);line-height:1.45;margin-top:1px}
+.early-dt{font-size:9.5px;font-weight:400;color:var(--t3);line-height:1.35;text-align:right}
 .view-more{font-size:10px;font-weight:600;margin:8px 0 2px}
 .view-more a{display:inline-flex;align-items:center;justify-content:center;color:#fff;background:var(--navy);text-decoration:none;padding:7px 12px;border-radius:2px;letter-spacing:.2px}
 
@@ -106,7 +108,7 @@ body{background:#F5F6F7}
   .exp-time { text-align: left; }
   .exp-role { font-size: 15px; }
   .t-grid { grid-template-columns: 1fr; }
-  .h-title { font-size: 10px; line-height: 1.5; }
+  .h-title { font-size: 10px; line-height: 1.5; white-space: normal; }
 }
 </style>
 </head>
@@ -115,17 +117,18 @@ body{background:#F5F6F7}
 
   <div class="hdr">
     <div class="hdr-left">
-      <div class="name"><span>Snehal</span> Solanki</div>
-      <div class="h-title">Product Designer &nbsp;·&nbsp; AI Design Engineer &nbsp;·&nbsp; 10+ years</div>
+      <div class="name"><span>Snehal</span> Solanki <span class="spark">✦</span></div>
+      <div class="h-title">AI Product Designer &nbsp;·&nbsp; AI Design Engineer &nbsp;·&nbsp; 10+ years</div>
       <div class="h-summary">The best design feels obvious only after you see it. It starts with noticing what people can't quite put into words. I've spent eight years learning to listen that closely, and the last year discovering what shifts when AI joins the conversation. The surprise? Better answers come from better questions, not faster ones.</div>
     </div>
     <div class="hdr-right">
+      <div class="contact-label">Contact Details</div>
       <div class="contact">
         <a class="contact-row" href="https://www.google.com/maps/search/?api=1&amp;query=Bengaluru%2C%20India">
           <span>Bengaluru, India</span>
         </a>
-        <a class="contact-row" href="https://confuseddesigner.in/">
-          <span>confuseddesigner.in</span>
+        <a class="contact-row" href="https://confuseddesigner.in/resume">
+          <span>confuseddesigner.in/resume</span>
         </a>
         <a class="contact-row" href="https://linkedin.com/in/snehalsolanki">
           <span>linkedin.com/in/snehalsolanki</span>
@@ -146,7 +149,7 @@ body{background:#F5F6F7}
         <div class="slbl">Skills</div>
         <div class="skill-cat">
           <div class="skill-cat-title">AI Workflows</div>
-          <div class="skill-line">AI Native Product Design / AI-Augmented Workflows / Prompt Engineering / Rapid Prototyping / Current AI Tooling / Next-Gen Product Thinking</div>
+          <div class="skill-line">AI Native Product Design / AI-Augmented Workflows / Prompt Engineering / Claude-led Design Ops / Rapid Prototyping / Product Spec Automation</div>
         </div>
         <div class="skill-cat">
           <div class="skill-cat-title">Design</div>
