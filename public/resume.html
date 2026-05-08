@@ -120,18 +120,10 @@ body{background:#F5F6F7}
   @page { margin: 0; size: A4 portrait; }
 }
 
-/* Fix html2canvas sub-pixel text overlap bug */
-.pdf-mode .body { grid-template-columns: 210px 0.5px minmax(0,1fr) !important; }
-.pdf-mode * { letter-spacing: normal !important; text-rendering: geometricPrecision !important; }
-.pdf-mode .skill-line, .pdf-mode .sk-list li, .pdf-mode .lang-list span, .pdf-mode .desc, .pdf-mode .blist li, .pdf-mode .impact-txt, .pdf-mode .edu-deg { font-size: 11px !important; line-height: 1.6 !important; word-spacing: 1px !important; }
-.pdf-mode .h-title { font-size: 10px !important; }
-.pdf-mode .h-summary { font-size: 11px !important; }
-.pdf-mode .contact { font-size: 10px !important; }
-.pdf-mode .skill-cat-title { font-size: 12px !important; }
-.pdf-mode .exp-role { font-size: 14px !important; }
-.pdf-mode .exp-co-row { font-size: 12px !important; }
-.pdf-mode .proj-name { font-size: 12px !important; }
-.pdf-mode .proj-desc { font-size: 11px !important; }
+/* Fix html2canvas rendering and pagination bugs */
+.pdf-mode { width: 860px !important; max-width: 860px !important; margin: 0 !important; box-shadow: none !important; }
+.pdf-mode * { font-variant-ligatures: none !important; -webkit-font-smoothing: antialiased !important; letter-spacing: 0.1px !important; }
+.pdf-mode .s-sec, .pdf-mode .exp, .pdf-mode .proj, .pdf-mode .edu-item, .pdf-mode .skill-cat { page-break-inside: avoid !important; break-inside: avoid !important; }
 </style>
 </head>
 <body>
@@ -373,27 +365,26 @@ body{background:#F5F6F7}
 <script>
   function downloadPDF() {
     const btn = document.querySelector('.download-btn');
-    btn.style.display = 'none'; // Temporarily hide the button
+    btn.style.display = 'none';
     
     const element = document.querySelector('.cv');
-    element.classList.add('pdf-mode'); // Apply precise canvas layout fixes
+    element.classList.add('pdf-mode');
     
-    // Wait a tiny bit for the browser to apply the pdf-mode CSS reflow
     setTimeout(() => {
-      // Create a single-page PDF exactly the size of the element to completely eliminate page-break cuts
       const opt = { 
-        margin: 0, 
+        margin: [0.2, 0], // Slight vertical padding
         filename: 'Snehal_Solanki_Resume.pdf',
         image: { type: 'jpeg', quality: 1.0 }, 
-        html2canvas: { scale: 2, useCORS: true }, 
-        jsPDF: { unit: 'px', format: [element.offsetWidth, element.offsetHeight], orientation: 'portrait', hotfixes: ["px_scaling"] } 
+        html2canvas: { scale: 2, useCORS: true, windowWidth: 860 }, 
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
       };
       
       html2pdf().set(opt).from(element).save().then(() => {
-        btn.style.display = 'flex'; // Restore button
-        element.classList.remove('pdf-mode'); // Restore precise web typography
+        btn.style.display = 'flex';
+        element.classList.remove('pdf-mode');
       });
-    }, 100);
+    }, 150);
   }
 </script>
 </body>
