@@ -110,10 +110,7 @@ body{background:#F5F6F7}
   .t-grid { grid-template-columns: 1fr; }
   .h-title { font-size: 10px; line-height: 1.5; white-space: normal; }
 }
-.download-btn { position: fixed; bottom: 24px; right: 24px; display: flex; align-items: center; gap: 8px; padding: 10px 16px; background-color: var(--navy); color: #fff; border: none; border-radius: 4px; font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; box-shadow: 0 4px 12px rgba(27,42,74,0.15); transition: transform 0.2s, background-color 0.2s; z-index: 100; text-decoration: none; }
-.download-btn:hover { background-color: #111e38; transform: translateY(-2px); }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 <div class="cv">
@@ -346,57 +343,6 @@ body{background:#F5F6F7}
     </div>
   </div>
 </div>
-<script>
-function downloadPDF() {
-  var btn = document.querySelector('.download-btn');
-  btn.textContent = 'Generating…';
-  btn.disabled = true;
 
-  var element = document.querySelector('.cv');
-  var savedCSS = element.style.cssText;
-
-  // Force the resume to its designed desktop width (860px)
-  // This overrides any responsive/mobile styles
-  element.style.width = '860px';
-  element.style.maxWidth = 'none';
-  element.style.margin = '0';
-  element.style.boxShadow = 'none';
-
-  // Wait for the browser to reflow at the forced width
-  setTimeout(function() {
-    var h = element.scrollHeight;
-
-    html2pdf()
-      .set({
-        margin:   0,
-        filename: 'Snehal_Solanki_Resume.pdf',
-        image:    { type: 'jpeg', quality: 0.98 },
-        html2canvas: {
-          scale:       2,
-          useCORS:     true,
-          scrollX:     0,
-          scrollY:     -window.scrollY,   // capture from top
-          windowWidth: 860                 // force desktop media-queries
-        },
-        jsPDF: {
-          unit:     'px',
-          format:   [860, h],
-          hotfixes: ['px_scaling']
-        }
-      })
-      .from(element)
-      .save()
-      .then(function() {
-        element.style.cssText = savedCSS;
-        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Download PDF';
-        btn.disabled = false;
-      });
-  }, 500);
-}
-</script>
-<button class="download-btn" onclick="downloadPDF()">
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-  Download PDF
-</button>
 </body>
 </html>
