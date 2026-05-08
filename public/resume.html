@@ -349,17 +349,32 @@ body{background:#F5F6F7}
 <script>
 function downloadPDF() {
   const element = document.querySelector('.cv');
-  const opt = { 
-    margin: 0, 
-    filename: 'Snehal_Solanki_Resume.pdf',
-    image: { type: 'jpeg', quality: 0.98 }, 
-    html2canvas: { scale: 2 }, 
-    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } 
-  };
-  const originalShadow = element.style.boxShadow;
+  
+  // Force a specific width for the capture to ensure 100% consistent proportions
+  const originalWidth = element.style.width;
+  const originalBoxShadow = element.style.boxShadow;
+  
+  element.style.width = '840px'; // Standard width for high-fidelity capture
   element.style.boxShadow = 'none';
+
+  const opt = { 
+    margin: 0.1, 
+    filename: 'Snehal_Solanki_Resume.pdf',
+    image: { type: 'jpeg', quality: 1.0 }, 
+    html2canvas: { 
+      scale: 3, // Higher scale for ultra-sharp text
+      useCORS: true, 
+      letterRendering: true,
+      scrollX: 0,
+      scrollY: 0
+    }, 
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
+  };
+
   html2pdf().set(opt).from(element).save().then(() => {
-    element.style.boxShadow = originalShadow;
+    // Restore original styles
+    element.style.width = originalWidth;
+    element.style.boxShadow = originalBoxShadow;
   });
 }
 </script>
