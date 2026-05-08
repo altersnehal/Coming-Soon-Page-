@@ -360,14 +360,27 @@ body{background:#F5F6F7}
 <script>
   function downloadPDF() {
     const element = document.querySelector('.cv');
+    
+    // Temporarily lock width to prevent wrapping or distortion
+    const originalWidth = element.style.width;
+    element.style.width = '860px';
+
     const opt = { 
       margin: 0, 
       filename: 'Snehal_Solanki_Resume.pdf',
-      image: { type: 'jpeg', quality: 0.98 }, 
-      html2canvas: { scale: 2 }, 
+      image: { type: 'jpeg', quality: 1.0 }, 
+      html2canvas: { 
+        scale: 4, // High scale resolves fractional font-size distortion
+        useCORS: true,
+        letterRendering: true,
+        windowWidth: 860
+      }, 
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } 
     };
-    html2pdf().set(opt).from(element).save();
+    
+    html2pdf().set(opt).from(element).save().then(() => {
+      element.style.width = originalWidth; // Restore
+    });
   }
 </script>
 </body>
