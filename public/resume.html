@@ -359,27 +359,20 @@ body{background:#F5F6F7}
 
 <script>
   function downloadPDF() {
-    const element = document.querySelector('.cv');
+    const btn = document.querySelector('.download-btn');
+    btn.style.display = 'none'; // Temporarily hide the button
     
-    // Temporarily lock width to prevent wrapping or distortion
-    const originalWidth = element.style.width;
-    element.style.width = '860px';
-
+    const element = document.querySelector('.cv');
     const opt = { 
-      margin: 0, 
+      margin: 0, // Using 0 because .cv already has internal padding
       filename: 'Snehal_Solanki_Resume.pdf',
-      image: { type: 'jpeg', quality: 1.0 }, 
-      html2canvas: { 
-        scale: 4, // High scale resolves fractional font-size distortion
-        useCORS: true,
-        letterRendering: true,
-        windowWidth: 860
-      }, 
+      image: { type: 'jpeg', quality: 0.98 }, 
+      html2canvas: { scale: 2 }, 
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } 
     };
     
     html2pdf().set(opt).from(element).save().then(() => {
-      element.style.width = originalWidth; // Restore
+      btn.style.display = 'flex'; // Restore button
     });
   }
 </script>
